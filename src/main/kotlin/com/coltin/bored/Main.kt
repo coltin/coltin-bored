@@ -3,9 +3,6 @@
  */
 package com.coltin.bored
 
-import com.coltin.bored.mbti.Functions
-import com.coltin.bored.mbti.Functions.Ni
-import com.coltin.bored.mbti.Mbti
 import com.coltin.bored.mbti.Mbti.INTJ
 
 class Main {
@@ -14,11 +11,10 @@ class Main {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            println(INTJ.functions())
-            println(INTJ.nemesis())
-            println(INTJ.critic())
-            println(INTJ.trickster())
-            println(INTJ.demon())
+            println(INTJ.egoFunctions())
+            println(INTJ.unconciousFunctions())
+            println(INTJ.subconciousFunctions())
+            println(INTJ.superegoFunctions())
         }
     }
 

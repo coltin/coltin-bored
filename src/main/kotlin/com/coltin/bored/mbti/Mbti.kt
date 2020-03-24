@@ -11,42 +11,84 @@ enum class Mbti(val functions: List<Functions>) {
     ISTP(listOf(Ti, Se, Ni, Fe)),
     ISFJ(listOf(Si, Fe, Ti, Ne)),
     ISFP(listOf(Fi, Se, Ni, Te)),
-    ENTJ(listOf(Ne, Ti, Fe, Si)),
-    ENTP(listOf(Te, Ni, Se, Fi)),
-    ENFJ(listOf(Ne, Fi, Te, Si)),
-    ENFP(listOf(Fe, Ni, Se, Ti)),
-    ESTJ(listOf(Se, Ti, Fe, Ni)),
-    ESTP(listOf(Te, Si, Ne, Fi)),
-    ESFJ(listOf(Se, Fi, Te, Ni)),
-    ESFP(listOf(Fe, Si, Ne, Ti));
+    ENTJ(listOf(Te, Ni, Se, Fi)),
+    ENTP(listOf(Ne, Ti, Fe, Si)),
+    ENFJ(listOf(Fe, Ni, Se, Ti)),
+    ENFP(listOf(Ne, Fi, Te, Si)),
+    ESTJ(listOf(Te, Si, Ne, Fi)),
+    ESTP(listOf(Se, Ti, Fe, Ni)),
+    ESFJ(listOf(Fe, Si, Ne, Ti)),
+    ESFP(listOf(Se, Fi, Te, Ni));
 
-    fun functions() =
-            StringBuilder()
-                    .append("Ego - ").append(name).append("\n")
-                    .append("\tHero: ").append(functions[0].name).append(" ").append(functions[0]).append("\n")
-                    .append("\tParent: ").append(functions[1].name).append(" ").append(functions[1]).append("\n")
-                    .append("\tChild: ").append(functions[2].name).append(" ").append(functions[2]).append("\n")
-                    .append("\tInferior: ").append(functions[3].name).append(" ").append(functions[3]).append("\n")
-                    .append("\t  / Aspirational")
-                    .toString()
-
-    // Unconscious
+    val unconscious get() = valueOf(invertLetter(name[0]) + name[1] + name[2] + invertLetter(name[3]))
     fun nemesis() = functions[0].invert()
     fun critic() = functions[1].invert()
     fun trickster() = functions[2].invert()
     fun demon() = functions[3].invert()
 
-    // Subconscious
+    val subconscious get() = valueOf(invertLetter(name[0]) + invertLetter(name[1]) + invertLetter(name[2]) + invertLetter(name[3]))
     fun physics() = functions[3]
     fun morality() = functions[2]
     fun rationale() = functions[1]
     fun willpower() = functions[0]
 
-    // Superego
+    val superego get() = valueOf(name[0] + invertLetter(name[1]) + invertLetter(name[2]) + name[3])
     fun duty() = functions[3].invert()
     fun ethics() = functions[2].invert()
     fun logic() = functions[1].invert()
     fun metaphysics() = functions[0].invert()
+
+    private fun invertLetter(letter: Char) = when (letter) {
+        'I' -> "E"
+        'E' -> "I"
+        'N' -> "S"
+        'S' -> "N"
+        'T' -> "F"
+        'F' -> "T"
+        'J' -> "P"
+        'P' -> "T"
+        else -> ""
+    }
+
+    fun egoFunctions() =
+            StringBuilder()
+                    .append("Ego - ").append(name)
+                    .append("\n\tHero \t\t").append(functions[0].name)
+                    .append("\n\tParent \t\t").append(functions[1].name)
+                    .append("\n\tChild \t\t").append(functions[2].name)
+                    .append("\n\tInferior \t").append(functions[3].name)
+                    .append("\n\t  / Aspirational")
+                    .toString()
+
+    fun unconciousFunctions() = unconscious.let {
+        StringBuilder()
+                .append("Unconscious - ").append(it.name)
+                .append("\n\tNemesis \t").append(it.functions[0].name)
+                .append("\n\tCritic \t\t").append(it.functions[1].name)
+                .append("\n\tTrickster \t").append(it.functions[2].name)
+                .append("\n\tDemon \t\t").append(it.functions[3].name)
+                .toString()
+    }
+
+    fun subconciousFunctions() = subconscious.let {
+        StringBuilder()
+                .append("Subconscious - ").append(it.name)
+                .append("\n\tPhysics \t").append(it.functions[0].name)
+                .append("\n\tMorality \t").append(it.functions[1].name)
+                .append("\n\tRationale \t").append(it.functions[2].name)
+                .append("\n\tWillpower \t").append(it.functions[3].name)
+                .toString()
+    }
+
+    fun superegoFunctions() = superego.let {
+        StringBuilder()
+                .append("Superego - ").append(it.name)
+                .append("\n\tDuty \t\t").append(it.functions[0].name)
+                .append("\n\tEthics \t\t").append(it.functions[1].name)
+                .append("\n\tLogic \t\t").append(it.functions[2].name)
+                .append("\n\tMetaphysics ").append(it.functions[3].name)
+                .toString()
+    }
 }
 
 enum class Functions {
