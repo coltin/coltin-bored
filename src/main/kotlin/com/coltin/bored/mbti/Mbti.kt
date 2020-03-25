@@ -46,7 +46,7 @@ enum class Mbti(val functions: List<Functions>) {
         'T' -> "F"
         'F' -> "T"
         'J' -> "P"
-        'P' -> "T"
+        'P' -> "J"
         else -> ""
     }
 
